@@ -7,4 +7,8 @@ class PlayerPaddle(
     fun move(newX: Float) {
         playerPaddleView.x = newX.coerceIn(0f, screenWidth - playerPaddleView.width.toFloat())
     }
+
+    fun getView(): View {
+        return playerPaddleView
+    }
 }
