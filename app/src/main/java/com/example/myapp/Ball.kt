@@ -5,6 +5,11 @@ class Ball(
     private val screenWidth: Int,
     private val screenHeight: Int
 ) {
+    val x: Float get() = ballView.x
+    val y: Float get() = ballView.y
+    val width: Int get() = ballView.width
+    val height: Int get() = ballView.height
+
     private var speedX = 10f
     private var speedY = 10f
 
