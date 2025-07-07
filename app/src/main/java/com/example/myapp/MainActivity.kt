@@ -1,20 +1,68 @@
 package com.example.myapp
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.os.Handler
+import android.os.Looper
+import android.view.MotionEvent
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var gameEngine: GameEngine
+    private lateinit var handler: Handler
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        val mainView = findViewById<ConstraintLayout>(R.id.main)
+        val ballView = findViewById<View>(R.id.ball)
+        val playerPaddleView = findViewById<View>(R.id.playerPaddle)
+        val computerPaddleView = findViewById<View>(R.id.computerPaddle)
+        val playerScoreView = findViewById<TextView>(R.id.playerScore)
+        val computerScoreView = findViewById<TextView>(R.id.computerScore)
+
+        mainView.post {
+            val ball = Ball(
+                ballView,
+                mainView.width,
+                mainView.height
+            )
+            val playerPaddle = PlayerPaddle(playerPaddleView, mainView.width)
+            val computerPaddle = ComputerPaddle(computerPaddleView, mainView.width, ball)
+
+            gameEngine = GameEngine(
+                ball,
+                playerPaddle,
+                computerPaddle,
+                playerScoreView,
+                computerScoreView,
+                mainView.height
+            )
+
+            mainView.setOnTouchListener { _, event ->
+                if (event.action == MotionEvent.ACTION_MOVE) {
+                    playerPaddle.move(event.x)
+                }
+                true
+            }
+
+            handler = Handler(Looper.getMainLooper())
+            handler.postDelayed(gameLoop, 16L) // Увеличил интервал для стабильности
         }
+    }
+
+    private val gameLoop = object : Runnable {
+        override fun run() {
+            gameEngine.update()
+            handler.postDelayed(this, 16L)
+        }
+    }
+
+    override fun onDestroy() {
+        handler.removeCallbacks(gameLoop)
+        super.onDestroy()
     }
 }
