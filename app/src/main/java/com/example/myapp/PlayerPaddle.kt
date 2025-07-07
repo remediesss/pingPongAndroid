@@ -1,3 +1,5 @@
+package com.example.myapp
+
 import android.view.View
 
 class PlayerPaddle(

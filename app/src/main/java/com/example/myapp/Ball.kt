@@ -1,42 +1,54 @@
+package com.example.myapp
+
 import android.view.View
+import kotlin.math.abs
+import kotlin.random.Random
 
 class Ball(
-    private val ballView: View,  // View мяча из XML
+    private val ballView: View,
     private val screenWidth: Int,
     private val screenHeight: Int
 ) {
+    var speedX = 10f
+    var speedY = 10f
+
     val x: Float get() = ballView.x
     val y: Float get() = ballView.y
-    val width: Int get() = ballView.width
-    val height: Int get() = ballView.height
-
-    private var speedX = 10f
-    private var speedY = 10f
+    val width: Float get() = ballView.width.toFloat()
+    val height: Float get() = ballView.height.toFloat()
 
     fun update() {
+        // Обновляем позицию мяча
         ballView.x += speedX
         ballView.y += speedY
 
-        // Отскок от стен
-        if (ballView.x <= 0 || ballView.x >= screenWidth - ballView.width) {
-            speedX *= -1
+        // Проверяем столкновение с левой/правой стенкой
+        if (x <= 0 || x >= screenWidth - width) {
+            speedX *= -1  // Отскок
+        }
+
+        // Проверяем выход за верхнюю/нижнюю границу (гол)
+        if (y <= 0 || y >= screenHeight - height) {
+            return  // В GameEngine обрабатываем гол
         }
     }
 
-    fun reset() {
-        ballView.x = (screenWidth / 2 - ballView.width / 2).toFloat()
-        ballView.y = (screenHeight / 2 - ballView.height / 2).toFloat()
-        speedX = if (Math.random() < 0.5) 10f else -10f
-        speedY *= -1
+    fun checkPaddleCollision(paddle: View): Boolean {
+        return (x + width >= paddle.x &&
+                x <= paddle.x + paddle.width &&
+                y + height >= paddle.y &&
+                y <= paddle.y + paddle.height)
     }
 
-    fun checkCollision(paddle: View): Boolean {
-        return ballView.y + ballView.height >= paddle.y &&
-                ballView.x + ballView.width >= paddle.x &&
-                ballView.x <= paddle.x + paddle.width
+    fun bounceOffPaddle() {
+        speedY *= -1
+        speedX += (Random.nextFloat() - 0.5f) * 2  // Добавляем случайность
     }
 
-    fun reverseY() {
-        speedY *= -1
+    fun reset(towardsPlayer: Boolean) {
+        ballView.x = screenWidth / 2f - width / 2
+        ballView.y = screenHeight / 2f - height / 2
+        speedY = if (towardsPlayer) abs(speedY) else -abs(speedY)
+        speedX = (if (Random.nextBoolean()) 1 else -1) * abs(speedX)
     }
 }

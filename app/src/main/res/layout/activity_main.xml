@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/main"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#2C2C2C"
-    tools:context=".MainActivity">
+    tools:context="MainActivity">
 
-    <!-- computer paddle -->
     <View
         android:id="@+id/computerPaddle"
         android:layout_width="92dp"
         android:layout_height="16dp"
+        android:layout_marginTop="48dp"
         android:background="#C3C3C3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- player paddle -->
     <View
         android:id="@+id/playerPaddle"
         android:layout_width="92dp"
         android:layout_height="16dp"
+        android:layout_marginBottom="48dp"
         android:background="#C3C3C3"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="16dp" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- ball-->
     <View
         android:id="@+id/ball"
         android:layout_width="13dp"
@@ -41,31 +41,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- copmuter score -->
     <TextView
         android:id="@+id/computerScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="sans-serif"
         android:text="0"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:fontFamily="sans-serif"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="16dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- player score -->
     <TextView
         android:id="@+id/playerScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="76dp"
+        android:fontFamily="sans-serif"
         android:text="0"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
-        android:fontFamily="sans-serif"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

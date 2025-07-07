@@ -1,3 +1,5 @@
+package com.example.myapp
+
 import android.view.View
 import android.widget.TextView
 
@@ -16,20 +18,20 @@ class GameEngine(
         ball.update()
         computerPaddle.update()
 
-        if (ball.checkCollision(playerPaddle.getView())) {
-            ball.reverseY()
-        } else if (ball.checkCollision(computerPaddle.getView())) {
-            ball.reverseY()
+        if (ball.checkPaddleCollision(playerPaddle.getView())) {
+            ball.bounceOffPaddle()
+        } else if (ball.checkPaddleCollision(computerPaddle.getView())) {
+            ball.bounceOffPaddle()
         }
 
         if (ball.y >= screenHeight - ball.height) {
             computerScore++
             computerScoreView.text = computerScore.toString()
-            ball.reset()
+            ball.reset(false)
         } else if (ball.y <= 0) {
             playerScore++
             playerScoreView.text = playerScore.toString()
-            ball.reset()
+            ball.reset(true)
         }
     }
 }
