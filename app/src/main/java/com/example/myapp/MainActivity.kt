@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 class MainActivity : AppCompatActivity() {
     private lateinit var gameEngine: GameEngine
     private lateinit var handler: Handler
+    private var isGameRunning = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,19 +51,43 @@ class MainActivity : AppCompatActivity() {
             }
 
             handler = Handler(Looper.getMainLooper())
-            handler.postDelayed(gameLoop, 16L) // Увеличил интервал для стабильности
+            handler.postDelayed(gameLoop, 16L)
         }
+
+        mainView.postDelayed({
+            isGameRunning = true
+            handler = Handler(Looper.getMainLooper())
+            handler.post(gameLoop)
+        }, 500)
     }
 
     private val gameLoop = object : Runnable {
         override fun run() {
-            gameEngine.update()
-            handler.postDelayed(this, 16L)
+            if (isGameRunning) {
+                gameEngine.update()
+                handler.postDelayed(this, 16L)
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        isGameRunning = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isGameRunning && ::handler.isInitialized) {
+            isGameRunning = true
+            handler.post(gameLoop)
         }
     }
 
     override fun onDestroy() {
-        handler.removeCallbacks(gameLoop)
+        isGameRunning = false
+        if (::handler.isInitialized) {
+            handler.removeCallbacks(gameLoop)
+        }
         super.onDestroy()
     }
 }
