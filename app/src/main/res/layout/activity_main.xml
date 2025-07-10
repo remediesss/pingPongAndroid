@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/main"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#2C2C2C"
+    android:background="#BDBBBB"
     tools:context="MainActivity">
 
     <View
@@ -14,7 +13,7 @@
         android:layout_width="92dp"
         android:layout_height="16dp"
         android:layout_marginTop="48dp"
-        android:background="#C3C3C3"
+        android:background="#0659FF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +24,7 @@
         android:layout_width="92dp"
         android:layout_height="16dp"
         android:layout_marginBottom="48dp"
-        android:background="#C3C3C3"
+        android:background="#FF0000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -35,11 +34,11 @@
         android:id="@+id/ball"
         android:layout_width="13dp"
         android:layout_height="13dp"
-        android:background="#C3C3C3"
-        app:layout_constraintTop_toTopOf="parent"
+        android:background="#DE06F2"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/computerScore"
@@ -49,7 +48,7 @@
         android:layout_marginTop="76dp"
         android:fontFamily="sans-serif"
         android:text="0"
-        android:textColor="#FFFFFF"
+        android:textColor="#07FB81"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -62,7 +61,7 @@
         android:layout_marginBottom="76dp"
         android:fontFamily="sans-serif"
         android:text="0"
-        android:textColor="#FFFFFF"
+        android:textColor="#F20286"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
